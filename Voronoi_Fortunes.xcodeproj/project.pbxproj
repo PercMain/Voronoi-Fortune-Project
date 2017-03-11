@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		A5B2633E1E74A5D90030877E /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A5B2633D1E74A5D90030877E /* main.cpp */; };
+		A5B263461E74A6170030877E /* Geometry.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A5B263441E74A6170030877E /* Geometry.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -25,6 +26,8 @@
 /* Begin PBXFileReference section */
 		A5B2633A1E74A5D90030877E /* Voronoi_Fortunes */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Voronoi_Fortunes; sourceTree = BUILT_PRODUCTS_DIR; };
 		A5B2633D1E74A5D90030877E /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		A5B263441E74A6170030877E /* Geometry.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Geometry.cpp; sourceTree = "<group>"; };
+		A5B263451E74A6170030877E /* Geometry.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Geometry.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +61,8 @@
 			isa = PBXGroup;
 			children = (
 				A5B2633D1E74A5D90030877E /* main.cpp */,
+				A5B263441E74A6170030877E /* Geometry.cpp */,
+				A5B263451E74A6170030877E /* Geometry.hpp */,
 			);
 			path = Voronoi_Fortunes;
 			sourceTree = "<group>";
@@ -119,6 +124,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A5B2633E1E74A5D90030877E /* main.cpp in Sources */,
+				A5B263461E74A6170030877E /* Geometry.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
