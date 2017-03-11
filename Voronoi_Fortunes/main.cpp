@@ -32,9 +32,9 @@ int main(int argc, const char * argv[]) {
         cout << points.at(i).X << " " << points.at(i).Y << "\n";
     }
     
-    point cen = circCenter(points.at(0), points.at(1), points.at(2));
+    circle circ = circFromPoints(points.at(0), points.at(1), points.at(2));
     
-    printf("\nCenter = %.3f,%.3f\n", cen.X, cen.Y);
+    printf("\nCenter = %.3f,%.3f\nRadius = %.3f\n", circ.Center.X, circ.Center.Y,circ.Radius);
     
     return 0;
 }

@@ -112,3 +112,12 @@ point circCenter(point A, point B, point C)
     
     return Center;
 }
+
+circle circFromPoints(point A, point B, point C)
+{
+    point cen = circCenter(A, B, C);
+    
+    double dist = sqrt((A.X - cen.X)*(A.X - cen.X) + (A.Y - cen.Y)*(A.Y - cen.Y));
+    
+    return {cen,dist};
+}

@@ -51,6 +51,12 @@ struct triangle
     line    lines[3];
 };
 
+struct circle
+{
+    point   Center;
+    double  Radius;
+};
+
 //Functions
 
 //Safe Division, stops divide by zero errors
@@ -70,6 +76,6 @@ point detInter(line AB, line CD);
 
 point circCenter(point A, point B, point C);
 
-
+circle circFromPoints(point A, point B, point C);
 
 #endif /* Geometry_hpp */
