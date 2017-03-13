@@ -7,15 +7,18 @@
 //
 
 #include "Geometry.hpp"
+#include "SvgPacker.hpp"
 
 using namespace std;
+
+SvgPacker svg;
 
 //Initial Data
 vector <point> points =
 {
-     {100.0, 100.0}
-    ,{200.0, 200.0}
-    ,{300.0, 100.0}
+     {101.6, 110.6}
+    ,{200.9, 207.2}
+    ,{285.0, 97.5}
 };
 
 /*
@@ -27,14 +30,25 @@ vector <point> points =
 //Main Loop
 int main(int argc, const char * argv[]) {
     
+    circle circ = circFromPoints(points.at(0), points.at(1), points.at(2));
+    
     for(int i = 0; i < points.size(); i++)
     {
         cout << points.at(i).X << " " << points.at(i).Y << "\n";
+        svg.addToWork(svg.circle(1, points.at(i).X, points.at(i).Y));
     }
     
-    circle circ = circFromPoints(points.at(0), points.at(1), points.at(2));
-    
     printf("\nCenter = %.3f,%.3f\nRadius = %.3f\n", circ.Center.X, circ.Center.Y,circ.Radius);
+    
+    svg.addToWork(svg.circle(circ.Radius, circ.Center.X, circ.Center.Y));
+    svg.addToWork(svg.circle(1, circ.Center.X, circ.Center.Y));
+    
+    svg.addToWork(svg.line(points.at(0).X, points.at(0).Y, points.at(1).X, points.at(1).Y));
+    svg.addToWork(svg.line(points.at(1).X, points.at(1).Y, points.at(2).X, points.at(2).Y));
+    
+    svg.addToWork(svg.fileFooter());
+    
+    cout << svg.WorkingContent;
     
     return 0;
 }
