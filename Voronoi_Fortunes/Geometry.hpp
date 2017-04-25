@@ -15,6 +15,10 @@
 #include <math.h>
 #include <map>
 
+
+#define MIN_RAY_LENGTH  0.01
+#define MAX_NUM_RAYS    10000
+
 //Constants
 const double MAX_LENGTH_OF_LINE = 1000.0;
 
@@ -45,6 +49,21 @@ struct line_slope
     double  Length;
 };
 
+struct ray
+{
+    point   Origin;
+    double  Angle;
+    double  Length;
+};
+
+struct cell
+{
+    point               Center;
+    std::vector <ray>   Rays;
+    std::vector <bool>  Fixed;
+    
+};
+
 struct triangle
 {
     point   points[3];
@@ -62,6 +81,9 @@ struct circle
 //Safe Division, stops divide by zero errors
 double sDiv(double x, double y);
 
+//Simple pythagorean distance
+double dist(point A, point B);
+
 //Changes line (points form) to line_slope
 line_slope toSlopeForm(line AB);
 
@@ -77,5 +99,15 @@ point detInter(line AB, line CD);
 point circCenter(point A, point B, point C);
 
 circle circFromPoints(point A, point B, point C);
+
+point endOfRay(ray A);
+
+std::vector <point> endVector(cell A);
+
+void initCell(cell &A, point O, int numOfRays);
+
+void inflateCell(cell &A, double delta);
+
+std::vector <double> pointToDoubleInter(std::vector <point> A);
 
 #endif /* Geometry_hpp */

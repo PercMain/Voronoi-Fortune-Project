@@ -8,7 +8,7 @@
 
 #include "SvgPacker.hpp"
 
-#define PI 3.14159265
+
 
 //Constructor
 SvgPacker::SvgPacker()
@@ -112,13 +112,13 @@ string SvgPacker::line(double xStart, double yStart, double xStop, double yStop)
 }
 
 //Returns circle of given radius centered at coordinates
-string SvgPacker::circle(double radius, double xCenter, double yCenter)
+string SvgPacker::circle(double radius, double xCenter, double yCenter, string color)
 {
     //<circle cx="50" cy="50" r="40" stroke="black" stroke-width="3" fill="red" />
     string LineStart = "<circle cx=\"";
     string Second = "\" cy=\"";
     string Third = "\" r=\"";
-    string LineEnd = "\" stroke=\"black\" stroke-width=\"0.1\" fill=\"none\" />\n";
+    string LineEnd = "\" stroke=\"black\" stroke-width=\"0.1\" fill=\"" + color + "\" />\n";
     
     string Radius = to_string(radius);
     string XCenter = to_string(xCenter);
@@ -146,6 +146,28 @@ string SvgPacker::poly(vector<double> xy)
     return LineStart + _TempContent + LineEnd;
     
 }
+
+//Creates closed polygon following coordinate vector
+string SvgPacker::polygon(vector<double> xy)
+{
+    _TempContent.clear();
+    string LineStart = "<polygon points=\"";
+    string LineEnd = "\" style=\"fill:none;stroke:black;stroke-width:0.1\" />\n\n";
+    
+    unsigned long NumberOfPoints = xy.size();
+    
+    for (int i = 0; i < NumberOfPoints; i+=2)
+    {
+        string OnePair = to_string(xy[i]) + ", " + to_string(xy[i+1]) + " \n";
+        addToTemp(OnePair);
+        
+    }
+    
+    return LineStart + _TempContent + LineEnd;
+    
+}
+
+
 
 //Generates circle segment centered at coordinates between angle start and angle stop
 string SvgPacker::arc(double radius, double xCenter, double yCenter, double angleStart, double angleStop)

@@ -8,6 +8,8 @@
 
 #include "Geometry.hpp"
 
+#include "SvgPacker.hpp" //Only for the PI
+
 using namespace std;
 
 //Functions
@@ -23,6 +25,12 @@ double sDiv(double x, double y)
     {
         return x / __DBL_MIN__;
     }
+}
+
+//Simple pythagorean distance
+double dist(point A, point B)
+{
+    return sqrt(pow((A.X - B.X),2) + pow((A.Y - B.Y),2));
 }
 
 //Changes line (points form) to line_slope
@@ -113,11 +121,93 @@ point circCenter(point A, point B, point C)
     return Center;
 }
 
+//Compute circle center point and radius from 3 sets of coordinates
 circle circFromPoints(point A, point B, point C)
 {
     point cen = circCenter(A, B, C);
     
-    double dist = sqrt((A.X - cen.X)*(A.X - cen.X) + (A.Y - cen.Y)*(A.Y - cen.Y));
+    double radDist = sqrt((A.X - cen.X)*(A.X - cen.X) + (A.Y - cen.Y)*(A.Y - cen.Y));
     
-    return {cen,dist};
+    return {cen,radDist};
 }
+
+//Compute coordinates of the end of a ray
+point endOfRay(ray A)
+{
+    point E;
+    
+    E.X = A.Length * cos(A.Angle * PI / 180.0) + A.Origin.X;
+    E.Y = A.Length * sin(A.Angle * PI / 180.0) + A.Origin.Y;
+    
+    return E;
+}
+
+vector <point> endVector(cell A)
+{
+    vector <point> ret;
+    
+    for(int i = 0; i < A.Rays.size(); i++)
+    {
+        ret.push_back(endOfRay(A.Rays.at(i)));
+    }
+    
+    return ret;
+}
+
+
+//Initialize a cell for a given number of rays at a specified center point in 2D space
+void initCell(cell &A, point O, int numOfRays)
+{
+    A.Center = O;
+    if(numOfRays < MAX_NUM_RAYS)
+    {
+        for(int i = 0; i < numOfRays; i++)
+        {
+            ray R;
+            
+            R.Origin    = A.Center;
+            R.Angle     = i*360.0/numOfRays;
+            R.Length    = MIN_RAY_LENGTH;
+            
+            A.Rays.push_back(R);
+            A.Fixed.push_back(false);
+        }
+    }
+    else
+    {
+        //do nothing, exception
+    }
+}
+
+//Grow cells by extending rays that have not terminated
+void inflateCell(cell &A, double delta)
+{
+    for(int i = 0; i < A.Rays.size(); i++)
+    {
+        //Check if specific ray has terminated
+        if(! (A.Fixed.at(i)) )
+        {
+            A.Rays.at(i).Length += delta;
+        }
+        else
+        {
+            //Do Nothing
+        }
+    }
+}
+
+//Converts vector of point struct into interlaced vector of doubles
+vector <double> pointToDoubleInter(vector <point> A)
+{
+    vector <double> ret;
+    for(int i = 0; i < A.size(); i++)
+    {
+        ret.push_back(A.at(i).X);
+        ret.push_back(A.at(i).Y);
+    }
+    
+    return ret;
+}
+
+
+

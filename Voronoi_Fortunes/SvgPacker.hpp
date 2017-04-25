@@ -51,7 +51,7 @@ public:
     string line(double xStart, double yStart, double xStop, double yStop);
     
     //Creates circle element from radius and center coordinates
-    string circle(double radius, double xCenter, double yCenter);
+    string circle(double radius, double xCenter, double yCenter, string color = "none");
     
     //Creates arc element from radius, center coordinates, and angular limits
     string arc(double radius, double xCenter, double yCenter, double angleStart, double angleStop);
@@ -61,6 +61,9 @@ public:
     
     //Creates polyline from coordinate vector
     string poly(vector<double> xy);
+    
+    //Creates closed polygon from coordinate vector
+    string polygon(vector<double> xy);
     
     //Creates a rotational pattern
     string rotationPattern(string content, int numberOfInstances, double xCenter, double yCenter);
